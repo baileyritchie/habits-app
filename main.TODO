@@ -1,0 +1,20 @@
+Server Side:
+  server.js:
+    [X] Set up .env variables
+    [X] Set up db connection
+    [X] Set up a simple route 
+    [X] Set up 404 error route
+    [X] Set up final error handler
+    [] Commit to GH
+  Routes/Controller:
+    [] Create Dummy "Habits" data to use in controller
+    [] Add one controller to the routes/index.js page
+    [] Set up express and router object
+    [] Export router to server.js and import in server.js
+    [] Validate router and controller work
+  Model:
+    [] Set up simple initial model and connect to cloud
+  Services:
+    [] populate dummy data to be created in db
+    [] get dummy data from db
+
