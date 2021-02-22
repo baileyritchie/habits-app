@@ -11,7 +11,9 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const createError = require('http-errors');
 const asyncHandler = require('express-async-handler');
+const bodyParser = require('body-parser')
 const db = require('mongoose');
+const routes = require('./routes');
 
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_DB_URL;
@@ -19,6 +21,7 @@ const MONGO_URI = process.env.MONGO_DB_URL;
 const app = express();
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
 
@@ -39,8 +42,7 @@ app.get('/',asyncHandler((req,res) => {
 })
 );
 
-/* TODO will use router here */
-
+app.use('/api',routes);
 
 /* generic 404 error */
 app.use((req, res, next) => {
@@ -49,7 +51,8 @@ app.use((req, res, next) => {
 
 /* final error handler */
 app.use((error,req,res,next) => {
-  res.status(error.status || 5000);
+  res.status(error.status || 500);
+  console.log(error);
   res.send({
     status: error.status,
     message: error.message,
