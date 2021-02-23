@@ -1,13 +1,13 @@
 Server Side:
   server.js:
   Routes/Controller:
-    ☐ set up route to handle user's services
+    ☐ Make habits route private
   Model:
   Services:
-    ☐ create 'isAuthed' service
-    ☐ create register service
-    ☐ create login service
-    ☐ create/send cookues
-    ☐ test cookies
+Front End:
+  App:
+    ☐ start create react app
+  Context:
+
 
 
