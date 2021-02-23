@@ -1,7 +1,13 @@
 Server Side:
   server.js:
   Routes/Controller:
+    ☐ set up route to handle user's services
   Model:
-    ☐ Set up simple initial model and connect to cloud
   Services:
-    
+    ☐ create 'isAuthed' service
+    ☐ create register service
+    ☐ create login service
+    ☐ create/send cookues
+    ☐ test cookies
+
+
