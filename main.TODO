@@ -1,13 +1,13 @@
 Server Side:
   server.js:
   Routes/Controller:
-    ☐ Make habits route private
   Model:
   Services:
 Front End:
   App:
-    ☐ start create react app
   Context:
+  Register:
+  Login:
 
 
 

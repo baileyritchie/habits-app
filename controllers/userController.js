@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const login = require('../services/login');
 const register = require('../services/register');
+const isLoggedIn =  require('../services/isLoggedIn');
 
 async function setLogin(req,res) {
   let {message,token} = await login(req.body);
@@ -13,8 +14,7 @@ async function setLogin(req,res) {
     httpOnly:true});
   res.send({message});
 }
-// bobby
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjAzNTdjODFiZTk1NDYxM2EwNTFiYTY5IiwiaWF0IjoxNjE0MTE4MDE4fQ.Uk0x64ql3YQjYnljmV94MywBhhqgwrq5qJOtc-otGNU
+
 async function setRegister(req,res) {
   let {message,token} = await register(req.body);
 
@@ -22,23 +22,46 @@ async function setRegister(req,res) {
     // no token returned from the service
     throw createError(400,message);
   }
-  res.cookie("token",token, {
-    httpOnly:true,
-    secure:true,
-    sameSite:"none"
-  });
+  console.log("token is:", token);
+  res
+    .cookie("token", token, {
+    httpOnly:true});
   res.send({message});
 }
 async function setLogout(req,res) {
   /* simply remove the cookie */
-  res.cookie("token","",{
-    httpOnly:true,
-    expires: new Date(0)
-  }).send({message:"success"});
+  try {
+    console.log('logout attempted');
+    res.clearCookie("token").send();
+    /*res.cookie("token","",{
+      httpOnly:true,
+      expires: new Date(0),
+      secure: true,
+      sameSite: "none",
+      path: '/'
+    }).send();*/
+  } catch (err) {
+    throw createError(401, "Could not logout");
+  }
+}
+async function getLoggedIn(req,res) {
+  /* TO DO - send user id back as well */
+  /* determine if user logged in based on cookie */
+  const token = req.cookies.token;
+  if (!token) {
+    res.send(false);
+  }
+  const {message,userId} = await isLoggedIn(token);
+  if (!userId) {
+    throw createError(401,message);
+  }
+  console.log(userId.user);
+  res.send(true);
 }
 
 module.exports = {
   setLogin,
   setRegister,
-  setLogout
+  setLogout,
+  getLoggedIn
 }
