@@ -2,13 +2,14 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import AuthContext from "../context/Auth";
+import { useHistory } from "react-router-dom";
 
 export default function Register() {
   const [name,setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
-
+  let history = useHistory();
   const { getLoggedIn } = useContext(AuthContext);
 
   async function register(e) {
@@ -21,14 +22,13 @@ export default function Register() {
         password,
         passwordVerify,
       };
-
-      // await axios.post("http://localhost:5000/auth/", registerData);
       await axios.post(
         "http://localhost:5000/api/users/register",
         registerData
       );
       await getLoggedIn();
       console.log("user has been registered");
+      history.push("/");
     } catch (err) {
       console.log(err);
     }
