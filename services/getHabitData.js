@@ -1,9 +1,8 @@
 const Habit = require("../model/Habit");
 
-async function getHabitData() {
+async function getHabitData(userId) {
   /* add some fake data for testing */
-  await Habit.create({title:"hey testing",count:22});
-  let habits = await Habit.find({});
+  let habits = await Habit.find({"user":{_id: userId}});
   return habits;
 }
 
