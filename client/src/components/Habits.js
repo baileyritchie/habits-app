@@ -12,10 +12,10 @@ export default function Habits() {
     if (!data) {
       console.log('data was not retrieved');
     }
-    console.log(data);
+    console.log('These are the habits on this account:',data);
     setHabits(data);
   }
-  useEffect(getData);
+  useEffect(() => getData(), []);
   
   return (
     <div>

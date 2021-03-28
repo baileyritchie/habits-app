@@ -1,14 +1,24 @@
 Server Side:
   server.js:
   Routes/Controller:
+    ☐ Create post and edit feature for habits
   Model:
   Services:
+    ☐ create habit posting service
+    ☐ test habit posting service
+    ☐ test habit editing service
+    ☐ create habit editing service
 Front End:
   App:
   Context:
   Register:
   Login:
   Habits:
+    ☐ make create habits (form) and component
+    ☐ make edit habits feature 
+    ☐ modify rendering/use effect for habitForm and Habits page
+      -> ensure that loggedIn gets rerun after page reload or fetching data
+    
 
 
 

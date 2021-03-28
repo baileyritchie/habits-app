@@ -55,7 +55,6 @@ async function getLoggedIn(req,res) {
   if (!userId) {
     throw createError(401,message);
   }
-  console.log(userId.user);
   res.send({auth:true,id:userId.user});
 }
 

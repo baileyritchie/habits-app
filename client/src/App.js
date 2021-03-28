@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
 import Habits from './components/Habits';
+import HabitForm from './components/HabitForm';
 
 import {
   BrowserRouter as Router,
@@ -24,8 +25,13 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
+          <Route path="/create">
+            <HabitForm/>
+          </Route>
           <Route path="/">
             <Habits/>
+          </Route>
+          <Route>
           </Route>
         </Switch>
       </Router>
