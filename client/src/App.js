@@ -3,7 +3,6 @@ import axios from "axios";
 import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
-import Habits from './components/Habits';
 import HabitForm from './components/HabitForm';
 
 import {
@@ -11,6 +10,9 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import EditHabitForm from './components/EditHabitForm';
+import HabitGroups from './components/HabitGroups';
+import CreateHabitGroupForm from './components/CreateHabitGroupForm';
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -25,14 +27,20 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/create">
+          <Route path="/habits/:habitId/edit">
+            <EditHabitForm/>
+          </Route>
+          <Route path="/habitgroups/create">
+            <CreateHabitGroupForm/>
+          </Route>
+          <Route path="/habitgroups/:habitGroupId/create">
             <HabitForm/>
           </Route>
+          
           <Route path="/">
-            <Habits/>
+            <HabitGroups/>
           </Route>
-          <Route>
-          </Route>
+    
         </Switch>
       </Router>
       <Logout></Logout>

@@ -12,6 +12,7 @@ function isAuth(req,res,next) {
     req.user = verified.user;
     next();
   } catch (err) {
+    console.log(err);
     throw createError(500, err.toString());
   }  
 }

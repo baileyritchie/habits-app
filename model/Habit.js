@@ -7,6 +7,10 @@ const habitSchema = mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId, ref: "User"
+  },
+  habitGroupId: {
+    type:mongoose.Schema.Types.ObjectId, ref: "HabitGroup",
+    required:true
   }
 }, {timestamps:true});
 

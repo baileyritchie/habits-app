@@ -1,39 +1,56 @@
-// form to create a new habit
+// form to edit a habit
 import AuthContext from '../context/Auth';
 import React, {useState,useEffect,useContext} from 'react';
 import axios from 'axios';
-
 import { Link,useHistory, useParams} from "react-router-dom";
 
-export default function HabitForm() {
-  //TODO - create a constant that grabs the habitGroupId from the url params
-  const {habitGroupId} = useParams();
+export default function EditHabitForm() { 
+  const {habitId} = useParams();
   const [title,setTitle] = useState("");
   const [count,setCount] = useState(0);
+
+  async function getHabitById(id) {
+    console.log('getting single habit route');
+    try {
+      console.log('the habit id from EditHabitForm is:',id);
+      const {data} = await axios.get(`http://localhost:5000/api/habits/${id}`);
+      if (!data) {
+        // if habit cannnot be fetched in order to edit, push to create route
+        console.log('habit not found')
+      }
+      setTitle(data.title);
+      setCount(data.count);
+    } catch (err) {
+      console.log(err);
+     
+    } 
+  }
+  
   const {userId,loggedIn} = useContext(AuthContext);
   const history = useHistory();
-  async function createHabit(e) {
+  async function editHabit(e) {
     e.preventDefault();
     try {
-      let {data} = await axios.post(`http://localhost:5000/api/habitgroups/${habitGroupId}/create`, {
+      let {data} = await axios.post(`http://localhost:5000/api/habits/${habitId}/edit`, {
         title,
         count,
-        userId,
-        habitGroupId
+        userId
       });
-      console.log('user if from habit form',userId);
-      console.log(data, "habit added");
-      history.push("/");
+      console.log(data, "habit edited");
+      history.push("/"); // back to view all habits
     } catch (err) {
       console.log(err);
     }
   }
-  
+  useEffect(() => {
+    getHabitById(habitId)
+  }, [habitId]);
+
   return (
     <div>
       {loggedIn ? 
         <>
-          <form onSubmit={createHabit}>
+          <form onSubmit={editHabit}>
             <input
               type="text"
               placeholder= "Add Title"
@@ -46,11 +63,11 @@ export default function HabitForm() {
               onChange={(e) => setCount(Number(e.target.value))}
               value={count}
             />
-            <button type="submit">Submit</button>
+            <button type="submit">Submit Your Habit</button>
           </form>
         </> : 
         <>
-          <p>Please Sign In to create habits</p>
+          <p>Please Sign In to Edit Your Habits</p>
           <Link to="/login">Sign In Here</Link>
         </>
       }

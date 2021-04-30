@@ -49,13 +49,15 @@ async function getLoggedIn(req,res) {
   /* determine if user logged in based on cookie */
   const token = req.cookies.token;
   if (!token) {
+    console.log('No token found');
     res.send({auth:false});
-  }
-  const {message,userId} = await isLoggedIn(token);
-  if (!userId) {
-    throw createError(401,message);
-  }
-  res.send({auth:true,id:userId.user});
+  } else {
+    const {message,userId} = await isLoggedIn(token);
+    if (!userId) {
+      throw createError(401,message);
+    }
+    res.send({auth:true,id:userId.user});
+  } 
 }
 
 module.exports = {
