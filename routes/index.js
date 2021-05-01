@@ -5,18 +5,21 @@ includes:
 
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const { getHabitGroups, postHabitGroups } = require('../controllers/habitGroupController');
+const { getHabitGroups, postHabitGroups, deleteHabitGroup, editHabitGroup, getHabitGroup } = require('../controllers/habitGroupController');
 const { getHabits,postHabit, getHabit, deleteHabit, editHabit } = require('../controllers/habitsController');
 
 const {setLogin,setRegister, setLogout, getLoggedIn} = require('../controllers/userController');
 const isAuth = require('../middlewares/auth');
 const router = express.Router();
 
+router.get('/habitgroup/:habitGroupId',isAuth,asyncHandler(getHabitGroup)); // gets info about a single habit group
 router.get('/habitgroups/:habitGroupId/',isAuth,asyncHandler(getHabits)); // gets all habits belonging to a habitgroup
 router.post('/habitgroups/:habitGroupId/create',isAuth,asyncHandler(postHabit));// create a new habit belonging to a habit group
 router.get('/habits/:habitId',isAuth, asyncHandler(getHabit)); //find a single habit by its habit id
 router.get('/habits/:habitId/delete',isAuth,asyncHandler(deleteHabit)); // delete a habit
 router.post('/habits/:habitId/edit',isAuth,asyncHandler(editHabit)); // edit a habit 
+router.get('/habitgroups/:habitGroupId/delete',isAuth, asyncHandler(deleteHabitGroup)); // deletes a habit group by habitgroupid
+router.post('/habitgroups/:habitGroupId/edit',isAuth,asyncHandler(editHabitGroup));// edits a habit group by it's id
 router.get('/habitgroups',isAuth,asyncHandler(getHabitGroups)); // get all habit groups
 router.post('/habitgroups/create',isAuth,asyncHandler(postHabitGroups)); // create a new habit group
 router.post('/users/login',asyncHandler(setLogin)); //login

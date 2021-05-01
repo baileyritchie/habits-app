@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 
 
-export default function Habit({userId,id,title,count,deleteThisHabit}) {
+export default function Habit({id,title,count,deleteThisHabit}) {
   let history = useHistory();
 
   async function editHabit(habitObj){
@@ -15,7 +15,7 @@ export default function Habit({userId,id,title,count,deleteThisHabit}) {
       <h1>{title}</h1>
       <p>{count} days of completing this habit!</p>
       <button onClick={(e) => deleteThisHabit(id)}>Delete Habit</button>
-      <button onClick={(e) => editHabit({id,title,count,userId})}>Edit Habit</button>
+      <button onClick={(e) => editHabit({id,title,count})}>Edit Habit</button>
     </div>
   )
 }

@@ -13,6 +13,7 @@ import {
 import EditHabitForm from './components/EditHabitForm';
 import HabitGroups from './components/HabitGroups';
 import CreateHabitGroupForm from './components/CreateHabitGroupForm';
+import EditHabitGroup from './components/EditHabitGroup';
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/habits/:habitId/edit">
             <EditHabitForm/>
+          </Route>
+          <Route path="/habitgroups/:habitGroupId/edit">
+            <EditHabitGroup/>
           </Route>
           <Route path="/habitgroups/create">
             <CreateHabitGroupForm/>

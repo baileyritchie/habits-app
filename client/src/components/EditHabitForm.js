@@ -22,7 +22,6 @@ export default function EditHabitForm() {
       setCount(data.count);
     } catch (err) {
       console.log(err);
-     
     } 
   }
   
@@ -33,8 +32,7 @@ export default function EditHabitForm() {
     try {
       let {data} = await axios.post(`http://localhost:5000/api/habits/${habitId}/edit`, {
         title,
-        count,
-        userId
+        count
       });
       console.log(data, "habit edited");
       history.push("/"); // back to view all habits

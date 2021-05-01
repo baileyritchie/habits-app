@@ -2,16 +2,11 @@ import React,{useEffect,useState} from 'react'
 import Habit from './Habit';
 import axios from 'axios';
 import { useHistory} from 'react-router-dom';
-export default function HabitGroup({title,habits,habitGroupId}) {
+export default function HabitGroup({title,habits,habitGroupId,deleteHabitGroup,editHabitGroup}) {
   const history = useHistory(); // TODO - add correct URL for history
-  // TODO - get habitGroupId passed in from props 
-  // - give component ability to delete a habit
-  // - give component the ability to edit a habit (after clicking a habit)
   const [habitData,setHabitData] = useState([]);
   async function deleteHabit(id){
-    
     const {data} = await axios.get(`http://localhost:5000/api/habits/${id}/delete`);
-    
     if (data) {
       // it was deleted
       console.log(data);
@@ -20,9 +15,8 @@ export default function HabitGroup({title,habits,habitGroupId}) {
       alert('Could not be deleted!');
     }
   }
-  async function editHabit(id) {
-    // do something to edit
-  }
+  
+
   useEffect( () => {
     const getHabitFromId = async () => {
       try {
@@ -43,9 +37,10 @@ export default function HabitGroup({title,habits,habitGroupId}) {
   return (
     <div>
       <h1>Habit Group: {title}</h1>
+      <button onClick={(e) => editHabitGroup(habitGroupId)}>Edit this Group</button>
+      <button onClick={(e) => deleteHabitGroup(habitGroupId)}>Delete this Group</button>
       <button onClick={(e) => history.push(`/habitgroups/${habitGroupId}/create`)}>Add a New Habit</button>
       {habitData.map((habit) => <Habit title={habit.title} id={habit._id} key={habit._id} count={habit.count} deleteThisHabit={(id) => deleteHabit(id)}/>)}
-      
     </div>
   )
 }
